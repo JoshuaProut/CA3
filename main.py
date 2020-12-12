@@ -22,7 +22,7 @@ used_articles = []
 alarm_status = "CovidClock"
 
 # implements logger
-logging.basicConfig(filename='errors.log', format='%(name)s - %(levelname)s - %(message)s', level=logging.WARNING)
+#logging.basicConfig(filename='errors.log', format='%(name)s - %(levelname)s - %(message)s', level=logging.WARNING)
 
 
 @app.route('/index')
