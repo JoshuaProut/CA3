@@ -1,0 +1,304 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to CA3 Covid Clock’s documentation! &#8212; CA3 Covid Clock 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-ca3-covid-clock-s-documentation">
+<h1>Welcome to CA3 Covid Clock’s documentation!<a class="headerlink" href="#welcome-to-ca3-covid-clock-s-documentation" title="Permalink to this headline">¶</a></h1>
+<p>This is a smart alarm clock which can also help keep track of the coronavirus situation in your area.
+This program is event driven, using Flask and an Html template. The user has the option to create an
+alarm, and a choice of announcing the news (plus coronavirus cases) and or weather. This alarm is announced using PyTTsx3.
+Silent notifications of the top news stories are also given</p>
+<span class="target" id="module-main"></span><p>Main module for the CA3 Smart Alarm Clock</p>
+<dl class="py function">
+<dt id="main.alarm_monitor">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">alarm_monitor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">alarm</span><span class="p">:</span> <span class="n">dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.alarm_monitor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Within the new daemon, starts the scheduler for alarm to be announced at specified time</p>
+<p>When the alarm time is reached, announce_alarm is called.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>alarm</strong> (<em>dict</em>) – <dl>
+<dt>{</dt><dd><blockquote>
+<div><p>“title”: alarm_title,
+“content”: description,
+“time”: alarm_datetime,
+“news”: news,
+“weather”: weather</p>
+</div></blockquote>
+<p>}</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.announce_alarm">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">announce_alarm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">alarm</span><span class="p">:</span> <span class="n">dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.announce_alarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Announces the alarm and news/weather if chosen using pyttsx3</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>alarm</strong> (<em>dict</em>) – <dl>
+<dt>{</dt><dd><blockquote>
+<div><p>“title”: alarm_title,
+“content”: description,
+“time”: alarm_datetime,
+“news”: news,
+“weather”: weather</p>
+</div></blockquote>
+<p>}</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+<p> </p>
+<dl class="py function">
+<dt id="main.create_alarm">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">create_alarm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">alarm_time</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">description</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">news</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">weather</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.create_alarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Appends to the list of active alarms</p>
+<p>Appends the following dictionary to the alarms list
+Starts a background daemon function to wait to announce alarm
+alarm_dict = {</p>
+<blockquote>
+<div><blockquote>
+<div><p>“title”: alarm_title,
+“content”: description,
+“time”: alarm_datetime,
+“news”: news,
+“weather”: weather</p>
+</div></blockquote>
+<p>}</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>alarm_status</strong> (<em>global</em>) – error message or success message to be shown to user</p></li>
+<li><p><strong>alarm_time</strong> (<em>str</em>) – Time for the alarm in format in the format: YYYY-MM-DD HH:MM</p></li>
+<li><p><strong>description</strong> (<em>str</em>) – Description for the alarm</p></li>
+<li><p><strong>news</strong> (<em>str</em>) – if not None, news will be announced with alarm</p></li>
+<li><p><strong>weather</strong> (<em>str</em>) – if not None, weather will be announced with alarm</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<p> </p>
+<dl class="py function">
+<dt id="main.create_notifications">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">create_notifications</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#main.create_notifications" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides top news articles as notifications</p>
+<p>Appends the following dictionary to the global notifications array</p>
+<p>notif_dict{
+title: str</p>
+<blockquote>
+<div><p>The headline title of the article</p>
+</div></blockquote>
+<dl class="simple">
+<dt>content: html link</dt><dd><p>The description of the article, linked to the full article using the URL provided</p>
+</dd>
+</dl>
+</dd></dl>
+<p> </p>
+<dl class="py function">
+<dt id="main.get_corona_data">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">get_corona_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; dict<a class="headerlink" href="#main.get_corona_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves coronavirus data from the official UK government tracking site</p>
+<p>Requests the new cases by publish date for the lower tier local authority code stored in
+config.json</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>corona_data</strong> – Full dict from JSON obj returned from coronavirus.data.gov.uk</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+<p> </p>
+<dl class="py function">
+<dt id="main.get_news">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">get_news</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; dict<a class="headerlink" href="#main.get_news" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the top news stories</p>
+<p>Uses newsapi.org and returns the top headlines from BBC news
+API key stored in config.json</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>news_data</strong> – dict from full JSON obj returned from newsapi</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+<p> </p>
+<dl class="py function">
+<dt id="main.get_weather">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">get_weather</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; dict<a class="headerlink" href="#main.get_weather" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns temperature and weather description for current weather</p>
+<p>Uses the openweathermap.org API to get the current weather for the user’s city defined in the
+config.JSON file, also in this file is the API key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>weather_data</strong> – Dict converted from full JSON obj from openweathermap.org</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+<p> </p>
+<dl class="py function">
+<dt id="main.index">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">index</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#main.index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes args from the main form, returns an updated template with notifications and alarms</p>
+    <p>alarm_time: YYYY-MM-DD HH:MM</p>
+    <p>two: Description of alarm</p>
+    <p>alarm_item: Title of alarm to be removed by the user</p>
+    <p>news: If “news” then news and covid data announced with alarm</p>
+<p>weather: If “weather” then current weather is announced with alarm</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>index.html</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Returns rendered HTML template with alarms, notifications and alarm status</p>
+</dd>
+</dl>
+</dd></dl>
+<p> </p>
+<dl class="py function">
+<dt id="main.remove_alarm">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">remove_alarm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">alarm_time</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">alarm_called</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.remove_alarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes alarm from the alarm array</p>
+<p>If the alarm is in the future and needs to be removed from the schedule queue as well then
+alarm_called should be true. If the alarm has been announced, it will have been removed by
+the sched queue automatically.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>alarm_time</strong> (<em>str</em>) – format: YYYY-MM-DD HH:MM</p></li>
+<li><p><strong>alarm_called</strong> (<em>Bool</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<p> </p>
+<dl class="py function">
+<dt id="main.remove_notification">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">remove_notification</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">notification_title</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.remove_notification" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes notification when X button pressed</p>
+<p>Removes notification from the global notifications list and adds it to the global used
+articles list so it will not be shown again</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>notification_title</strong> (<em>str</em>) – title of the notification to be removed</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">CA3 Covid Clock</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Joshua Prout.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
