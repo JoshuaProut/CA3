@@ -9,6 +9,8 @@ import logging
 import pyttsx3
 import requests
 from flask import Flask, render_template, request, Markup
+import os
+from pathlib import Path
 
 app = Flask(__name__)
 s = sched.scheduler(time.time, time.sleep)
@@ -21,8 +23,16 @@ used_articles = []
 # Displays whether the alarm was created successfully, passed to template as "title"
 alarm_status = "CovidClock"
 
+# Finds current working directory for package
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+CONFIG_PATH = os.path.join(CURRENT_DIR, 'config.json')
+PARENT_DIR = Path(CURRENT_DIR).parent
+INDEX_LOCATION = Path('templates\index.html')
+INDEX_PATH = os.path.join(PARENT_DIR, INDEX_LOCATION)
+
+
 # implements logger
-logging.basicConfig(filename='errors.log', format='%(name)s - %(levelname)s - %(message)s', level=logging.WARNING)
+# logging.basicConfig(filename='errors.log', format='%(name)s - %(levelname)s - %(message)s', level=logging.WARNING)
 
 
 @app.route('/index')
@@ -285,7 +295,7 @@ def get_weather() -> dict:
     """
 
     base_url = 'http://api.openweathermap.org/data/2.5/weather?'
-    with open('config.json') as keys_file:
+    with open(CONFIG_PATH) as keys_file:
         data = json.load(keys_file)
     api_key = data["weather_key"]
     location = data["city"]
@@ -331,7 +341,7 @@ def get_news() -> dict:
         dict from full JSON obj returned from newsapi
     """
 
-    with open('config.json') as config:
+    with open(CONFIG_PATH) as config:
         config_data = json.load(config)
     api_key = config_data["news_key"]
     url = "https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=" + api_key
@@ -351,7 +361,7 @@ def get_corona_data() -> dict:
     corona_data: dict
         Full dict from JSON obj returned from coronavirus.data.gov.uk
     """
-    with open('config.json') as config:
+    with open(CONFIG_PATH) as config:
         config_data = json.load(config)
     area_code = config_data["city_code"]
     corona_data = requests.get(
