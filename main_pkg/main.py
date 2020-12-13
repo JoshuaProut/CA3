@@ -28,10 +28,11 @@ CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 CONFIG_PATH = os.path.join(CURRENT_DIR, 'config.json')
 PARENT_DIR = Path(CURRENT_DIR).parent
 INDEX_LOCATION = Path('templates\index.html')
-INDEX_PATH =  os.path.join(PARENT_DIR, INDEX_LOCATION)
+INDEX_PATH = os.path.join(PARENT_DIR, INDEX_LOCATION)
+
 
 # implements logger
-#logging.basicConfig(filename='errors.log', format='%(name)s - %(levelname)s - %(message)s', level=logging.WARNING)
+# logging.basicConfig(filename='errors.log', format='%(name)s - %(levelname)s - %(message)s', level=logging.WARNING)
 
 
 @app.route('/index')
